@@ -21,12 +21,38 @@ class SistemaCarrera:
         cantidad = int(input("Ingrse la cantidad de competidores que desea registrar: "))
         for i in range(cantidad):
             print(f"Competirdor {i+1}")
-            num_dorsal = int(input("Ingrese el número de dorsal del competodor: "))
-            if num_dorsal in self.competidores:
-                print("")
+            while True:
+                num_dorsal = int(input("Ingrese el número de dorsal del competodor: "))
+                if num_dorsal in self.competidores:
+                    print("Este competidor ya ha sido registrado...")
+                else:
+                    break
+                nombre = input("Ingrese el nombre del competidor: ")
+                edad = int(input("Ingrse la edad del competidpr: "))
+                categoria = input("Ingrse la categoria del competidor: ")
+                self.competidores[num_dorsal] = Competidor(num_dorsal, nombre, edad, categoria)
 
+    def sort_nombres(self, lista):
+        if len(lista) <= 1:
+            return lista
 
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x["nombre"].lower() < pivote["nombre"].lower()]
+        iguales = [x for x  in lista if x["nombre"].lower() == pivote["nombre"].lower()]
+        mayores = [x for x in lista[1:] if x["nombre"].lower() > pivote["nombre"].lower()]
 
+        return self.sort_nombres(menores) + iguales + self.sort_nombres(mayores)
+
+    def sort_edades(self, lista):
+        if len(lista) <= 1:
+            return lista
+
+        pivote = lista[0]
+        menores = [e for e in lista if e.edad < pivote.edad]
+        iguales =  [e for e in lista if e.edad == pivote.edad]
+        mayores = [e for e in lista if e.edad > pivote.edad]
+
+        return self.sort_edades(menores) + iguales + self.sort_edades(mayores)
 
     def menu(self):
         opcion = 0
@@ -39,3 +65,13 @@ class SistemaCarrera:
                 opcion = int(input("Ingrese la opción que desea: "))
             except ValueError:
                 print("Ingrase un dato valido")
+
+            match opcion:
+                case 1:
+                    self.agregar_competidor()
+                case 2:
+                    self.sort_nombres()
+                case 3:
+                    self.sort_edades()
+                case 4:
+                    print("Saliendo del programa... ")
