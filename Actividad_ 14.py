@@ -22,18 +22,30 @@ class SistemaCarrera:
             try:
                 return int(input(mensaje))
             except ValueError:
-                print("Ingrse un número válido.... ")
+                print("Ingrese un número válido.... ")
 
 
-    def busqueda_secuencial(self, objetivo):
+    def busqueda_secuencial(self, dorsal):
         lista = list(self.competidores.values())
         for i in range(len(lista)):
-            if lista[i].objetivo.lower() == objetivo.lower():
+            if lista[i].num_dorsal == dorsal:
                 return i
-            else:
-                return -1
 
+        return -1
 
+    def buscar_repartidor(self):
+        if not self.competidores:
+            print("No hay competidores agragados...")
+            return
+        dorsal = self.pedir_entero("Ingrese el número de dorsal que desea buscar: ")
+        x = self.busqueda_secuencial(dorsal)
+        if x != -1:
+            competidor = list(self.competidores.values())[x]
+            print("-----------------------------")
+            print("Competidor encontrado :) ")
+            print(competidor)
+        else:
+            print("Competidor no encontrado... ")
 
 
     def agregar_competidor(self):
@@ -82,12 +94,13 @@ class SistemaCarrera:
 
     def menu(self):
         opcion = 0
-        while opcion!= 4:
+        while opcion!= 5:
             print("\n++MENU++")
             print("1. Agregar participante")
             print("2. Mostar participantes ordenados por nombre")
             print("3. Mostar participantes ordenados por edad")
-            print("4. Salir")
+            print("4. Buscar a competidor por número de dorsal")
+            print("5. Salir ")
             try:
                 opcion = int(input("Ingrese la opción que desea: "))
             except ValueError:
@@ -106,7 +119,8 @@ class SistemaCarrera:
                     for edad in edades_ordenadas:
                         print(edad)
                 case 4:
+                    self.buscar_repartidor()
+                case 5:
                     print("Saliendo del programa... ")
-
 
 SistemaCarrera().menu()
