@@ -33,7 +33,7 @@ class SistemaCarrera:
 
         return -1
 
-    def buscar_repartidor(self):
+    def buscar_competidor(self):
         if not self.competidores:
             print("No hay competidores agragados...")
             return
@@ -119,7 +119,7 @@ class SistemaCarrera:
                     for edad in edades_ordenadas:
                         print(edad)
                 case 4:
-                    self.buscar_repartidor()
+                    self.buscar_competidor()
                 case 5:
                     print("Saliendo del programa... ")
 
